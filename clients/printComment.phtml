@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Печать комментария</title>
+
+    <!-- подключаем файлы стилей -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h4>Заказ покупателя №<?php echo $client['id'] ?> от <?php echo $createdAt?> г.</h4>
+        <span style="width: 100%; border-bottom: 1px solid black">_____________________________________________________________________________________</span>
+        <h6> Исполнитель: <b><?php echo $setup['face']?>. <br><?php echo $setup['address'] ?> </b>
+            <br>
+            Заказчик: <b><?php echo $client['family'] . $client['name']?>, тел.: <?php echo $client['phone'] ?> </b></h6>
+
+        <?php $sum = 0; ?>
+        <?php if (!empty($products)) { ?>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Наименование</th>
+                    <th>К-во</th>
+                    <th>Ед.</th>
+                    <th>Цена</th>
+                    <th>Сумма</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php foreach ($products as $product) { ?>
+                    <tr>
+                        <td><?php echo $product['id'] ?></td>
+                        <td><?php echo $product['artical'] ?></td>
+                        <td><?php echo $product['count_product'] ?></td>
+                        <td>шт.</td>
+                        <td><?php echo $product['price'] ?></td>
+                        <td><?php echo $product['price'] * $product['count_product'] ?></td>
+                        <?php $sum = $sum + ($product['price'] * $product['count_product']) ?>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        <?php } ?>
+
+        <?php $sum = number_format($sum, 2) ?>
+
+        <h5 style="text-align: right"><b>Итого: <?php echo $sum ?> руб.</b></h5>
+
+        <h5 style="text-align: right"><b>Сумма предоплаты: <?php echo number_format($comment['amount'], 2) ?> руб.</b></h5>
+        <?php $partSum = explode('.', $sum) ?>
+        <h5>Всего наименований:<?php echo count($products) ?>,
+            на сумму <?php echo $partSum[0] ?> руб. <?php echo $partSum[1]?> коп. </h5>
+        <h5> <?php echo numberToString($sum) ?> </h5>
+
+        <?php echo $setup['text'] ?>
+
+        <div class="row" style="margin-top: 5%">
+                <h5 style="text-align: right"> Исполнитель: ________________            Заказчик: ________________</h5>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        window.print();
+    });
+</script>
+
+</body>
+</html>

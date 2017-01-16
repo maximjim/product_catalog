@@ -1,0 +1,22 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+
+        <!-- Если товаров не было найдено говорим об этом -->
+        <?php if (isset($error)) { ?>
+            <h3 style="text-align: center; color: red"><?php echo $error ?></h3>
+        <?php } ?>
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

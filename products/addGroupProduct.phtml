@@ -1,0 +1,110 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+
+        <!-- Если товаров не было найдено говорим об этом -->
+        <?php if (isset($emptyResult)) { ?>
+            <h3 style="text-align: center; color: red"><?php echo $emptyResult ?></h3>
+        <?php } ?>
+
+        <!-- Создаем форму для поиска товара по артикулу -->
+        <form name="search_product" method="POST">
+            <div class="form-group">
+                <label>Поиск товара:</label>
+                <input name="search" type="text" class="form-control" id="search" placeholder="Артикул">
+            </div>
+
+            <button type="submit" class="btn btn-success">Поиск</button>
+        </form>
+
+        <?php
+        // Берем список текущих товары из сессии
+        $currentProducts = isset($_SESSION['products']) ? $_SESSION['products'] : array()
+        ?>
+        <?php if (isset($product)) { ?>
+            <h4 style="text-align: center">Найденный товар</h4>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Дествие</th>
+                    <th>ID</th>
+                    <th>Артикул</th>
+                    <th>Бренд</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Поставщик</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <form name="addProduct" method="post">
+                            <input name="productId" type="text" hidden="hidden" value="<?php echo $product['id'] ?>">
+                            <input name="action" type="text" hidden="hidden" value="add">
+                            <button type="submit" class="btn btn-success">Добавить</button>
+                        </form>
+                    </td>
+                    <td><?php echo $product['id'] ?></td>
+                    <td><?php echo $product['artical'] ?></td>
+                    <td><?php echo $product['brand'] ?></td>
+                    <td><?php echo $product['price'] ?></td>
+                    <td><?php echo $product['count_product'] ?></td>
+                    <td><?php echo $product['provider'] ?></td>
+                </tr>
+                </tbody>
+            </table>
+        <?php } ?>
+
+        <?php if (!empty($currentProducts)) { ?>
+
+            <h4 style="text-align: center">Уже добавленные товары ранее</h4>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Действие</th>
+                    <th>ID</th>
+                    <th>Артикул</th>
+                    <th>Бренд</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Поставщик</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($currentProducts as $currentProduct) { ?>
+                    <tr>
+                        <td>
+                            <form name="deleteProduct" method="post">
+                                <input name="productId" type="text" hidden="hidden"
+                                       value="<?php echo $currentProduct['id'] ?>">
+                                <input name="action" type="text" hidden="hidden" value="delete">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                        <td><?php echo $currentProduct['id'] ?></td>
+                        <td><?php echo $currentProduct['artical'] ?></td>
+                        <td><?php echo $currentProduct['brand'] ?></td>
+                        <td><?php echo $currentProduct['price'] ?></td>
+                        <td><?php echo $currentProduct['count_product'] ?></td>
+                        <td><?php echo $currentProduct['provider'] ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        <?php } ?>
+
+        <a class=" btn-success" href="createConsignment.php">
+            <button style="float: right" class="btn btn-success" type="button">Создать накладную</button>
+        </a>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

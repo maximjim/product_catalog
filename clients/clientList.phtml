@@ -1,0 +1,142 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+
+        <!-- Если товаров не было найдено говорим об этом -->
+        <?php if (isset($emptyResult)) { ?>
+            <h3 style="text-align: center; color: red"><?php echo $emptyResult ?></h3>
+        <?php } ?>
+
+        <?php if (!empty($clients)) { ?>
+
+            <h4 style="text-align: center">Клиенты</h4>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Телефон</th>
+                    <th>Комментарий</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($clients as $client) { ?>
+                    <tr>
+                        <td><?php echo $client['id'] ?></td>
+                        <td><?php echo $client['name'] ?></td>
+                        <td><?php echo $client['family'] ?></td>
+                        <td><?php echo $client['phone'] ?></td>
+                        <td style="width: 10%"><a href="addClientComment.php?client=<?php echo $client['id'] ?>">
+                                <button type="button" class="btn btn-success">Добавить</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php $comments = $client['comments'] ?>
+                    <?php if (!empty($comments)) { ?>
+                        <td colspan="5">
+                            <?php if (isset($comments) && !empty($comments)) { ?>
+                                <h4 style="text-align: center">Комментарии</h4>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Комментарий</th>
+                                        <th>Дата создания</th>
+                                        <th>Сумма оплаты</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($comments as $comment) { ?>
+                                        <tr class="success">
+                                            <td style="width: 10%"><?php echo $comment['id'] ?></td>
+                                            <td style="width: 80%"><?php echo $comment['comment'] ?></td>
+                                            <td style="width: 80%"><?php echo $comment['createdAt'] ?></td>
+                                            <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo $comment['amount'] ?></td>
+                                            <td>
+
+                                                <a  href="addProductToClient.php?client=
+                                                    <?php echo $client['id'] . '&comment=' . $comment['id'] ?>">
+                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Добавить товар
+                                                    </button>
+                                                </a>
+
+                                                <a href="changeComment.php?comment=
+                                                    <?php echo $comment['id'] ?>">
+                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить комментарий
+                                                    </button>
+                                                </a>
+
+                                                <a target="_blank" href="printComment.php?comment=
+                                                    <?php echo $comment['id'] ?>">
+                                                    <button style="width: 100%" type="button" class="btn btn-success">Печать
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php $products = $comment['products'] ?>
+
+
+                                        <?php if (!empty($products)) { ?>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <h4 style="text-align: center">Товары</h4>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Артикул</th>
+                                                            <th>Бренд</th>
+                                                            <th>Цена</th>
+                                                            <th>Количество</th>
+                                                            <th>Поставщик</th>
+                                                            <th>Действие</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php foreach ($products as $product) { ?>
+                                                            <tr>
+                                                                <td><?php echo $product['id'] ?></td>
+                                                                <td><?php echo $product['artical'] ?></td>
+                                                                <td><?php echo $product['brand'] ?></td>
+                                                                <td><?php echo $product['price'] ?></td>
+                                                                <td><?php echo $product['count_product'] ?></td>
+                                                                <td><?php echo $product['provider'] ?></td>
+                                                                <td>
+                                                                    <a href="deleteProductForClient.php?product=<?php echo $product['id'] . '&comment=' . $comment['id']?>">
+                                                                        <button class="btn btn-danger">Удалить</button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            <?php } ?>
+                        </td>
+                    <?php } ?>
+                <?php } ?>
+                </tbody>
+            </table>
+        <?php } ?>
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

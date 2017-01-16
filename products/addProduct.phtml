@@ -1,0 +1,54 @@
+
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- если возникла ошибка или вставка не удалась -->
+
+        <?php if(isset($error)) echo $error?>
+        <?php if(isset($success)) echo $success?>
+
+        <!-- Создаем форму для добавления товаров -->
+        <form name="addProduct" method="POST">
+            <div class="form-group">
+                <label>Артикул:</label>
+                <input name="artical" type="text" class="form-control" id="artical"
+                       value="<?php if(isset($_POST['artical'])) echo $_POST['artical'] ?>" placeholder="Артикул">
+            </div>
+
+            <div class="form-group">
+                <label>Бренд:</label>
+                <input name="brand" type="text" class="form-control" id="brand"
+                       value="<?php if(isset($_POST['brand'])) echo $_POST['brand'] ?>" placeholder="Бренд">
+            </div>
+
+            <div class="form-group">
+                <label>Цена:</label>
+                <input name="price" type="text" class="form-control" id="price"
+                       value="<?php if(isset($_POST['price'])) echo $_POST['price'] ?>" placeholder="Цена">
+            </div>
+
+            <div class="form-group">
+                <label>Количество:</label>
+                <input name="count" type="text" class="form-control" id="count"
+                       value="<?php if(isset($_POST['count'])) echo $_POST['count'] ?>" placeholder="Количество">
+            </div>
+
+            <div class="form-group">
+                <label>Поставщик:</label>
+                <input name="provider" type="text" class="form-control" id="provider"
+                       value="<?php if(isset($_POST['provider'])) echo $_POST['provider'] ?>" placeholder="Поставщик">
+            </div>
+
+            <button type="submit" class="btn btn-success">Добавить товар</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

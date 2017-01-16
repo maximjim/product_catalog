@@ -1,0 +1,60 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h3 style="float: right; color: <?php $balance > 0 ? print_r('green') : print_r('red')?>">Общий итог: <?php echo $balance ?></h3>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+
+        <!-- Если товаров не было найдено говорим об этом -->
+        <?php if (isset($emptyResult)) { ?>
+            <h3 style="text-align: center; color: red"><?php echo $emptyResult ?></h3>
+        <?php } ?>
+
+        <h4 style="text-align: center">Расходы</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Дата создания</th>
+                <th>Сумма</th>
+                <th>Клиент</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $sum = 0 ?>
+            <?php foreach ($consignments as $consignment) { ?>
+                <?php $sum = $sum + $consignment['amount'] ?>
+                <tr class="danger">
+                    <td ><?php echo $consignment['id'] ?></td>
+                    <td ><?php echo $consignment['date'] ?></td>
+                    <td class="danger" style="text-align: center; vertical-align: middle"><?php echo $consignment['amount'] ?></td>
+                    <td style="text-align: center; vertical-align: middle">Поставщик</td>
+                </tr>
+            <?php } ?>
+            <tr>
+               <td></td>
+               <td></td>
+               <td class="danger" style="text-align: center; vertical-align: middle">Итого: <?php echo $sum ?></td>
+               <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

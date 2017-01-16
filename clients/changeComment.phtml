@@ -1,0 +1,49 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- Если были заполнены не все поля говорим об этом -->
+        <?php if (isset($error)) { ?>
+            <h4 style="text-align: center; color: red"> <?php echo $error ?> </h4>
+        <?php } ?>
+
+        <!-- Если операция была успешной сообщаем -->
+        <?php if (isset($success)) { ?>
+            <h4 style="text-align: center; color: green"> <?php echo $success ?> </h4>
+        <?php } ?>
+
+        <!-- Если клиент указан правильно, создаем форму для добавления клиента -->
+        <?php if ( isset($comment)) { ?>
+
+            <form name="changeClientComment" method="POST">
+
+                <input name="id" style="display: none" type="text" class="form-control" id="id"
+                       value="<?php echo $comment['id'] ?>">
+
+                <div class="form-group">
+                    <label>Сумма:</label>
+
+                    <input class="form-control" type="text" name="amount" id="amount" value="<?php echo $comment['amount'] ?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Комментарий:</label>
+                <textarea name="comment" type="text" class="form-control" id="comment"
+                          placeholder="Комментарий"><?php echo $comment['comment'] ?></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Изменить комментарий</button>
+            </form>
+        <?php } ?>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

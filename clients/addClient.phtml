@@ -1,0 +1,47 @@
+
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- Если были заполнены не все поля говорим об этом -->
+        <?php if (isset($error)) { ?>
+            <h4 style="text-align: center; color: red"> <?php echo $error ?> </h4>
+        <?php } ?>
+
+        <!-- Если операция была успешной сообщаем -->
+        <?php if (isset($success)) { ?>
+            <h4 style="text-align: center; color: green"> <?php echo $success ?> </h4>
+        <?php } ?>
+
+        <!-- Создаем форму для добавления клиента -->
+        <form name="addProduct" method="POST">
+            <div class="form-group">
+                <label>Имя:</label>
+                <input name="name" type="text" class="form-control" id="name"
+                       value="<?php if(isset($_POST['name'])) echo $_POST['name'] ?>" placeholder="Имя">
+            </div>
+
+            <div class="form-group">
+                <label>Фамилия:</label>
+                <input name="family" type="text" class="form-control" id="family"
+                       value="<?php if(isset($_POST['family'])) echo $_POST['family'] ?>" placeholder="Фамилия">
+            </div>
+
+            <div class="form-group">
+                <label>Телефон:</label>
+                <input name="phone" type="text" class="form-control" id="phone"
+                       value="<?php if(isset($_POST['phone'])) echo $_POST['phone'] ?>" placeholder="Телефон">
+            </div>
+
+            <button type="submit" class="btn btn-success">Добавить клиента</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

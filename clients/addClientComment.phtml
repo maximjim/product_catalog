@@ -1,0 +1,56 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- Если были заполнены не все поля говорим об этом -->
+        <?php if (isset($error)) { ?>
+            <h4 style="text-align: center; color: red"> <?php echo $error ?> </h4>
+        <?php } ?>
+
+        <!-- Если операция была успешной сообщаем -->
+        <?php if (isset($success)) { ?>
+            <h4 style="text-align: center; color: green"> <?php echo $success ?> </h4>
+        <?php } ?>
+
+        <!-- Если клиент указан правильно, создаем форму для добавления клиента -->
+        <?php if (!isset($error)) { ?>
+
+            <form name="addUserComment" method="POST">
+
+                <input name="client" style="display: none" type="text" class="form-control" id="client"
+                       value="<?php echo $client?>">
+
+                <div class="form-group">
+                    <label>Комментарий:</label>
+                <textarea name="comment" type="text" class="form-control" id="comment"
+
+                          placeholder="Комментарий"><?php if (isset($_POST['comment'])) echo $_POST['comment'] ?></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Добавить комментарий</button>
+            </form>
+        <?php } ?>
+
+        <?php if(isset($comments) && !empty($comments)){ ?>
+            <h4 style="text-align: center">Комментарии</h4>
+            <table class="table table-striped">
+                <tbody>
+                <?php foreach ($comments as $comment) { ?>
+                    <tr>
+                        <td><?php echo $comment['comment'] ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        <?php } ?>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> <?php echo $title ?> </title>
+    <!-- подключаем файлы стилей -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="http://js.nicedit.com/nicEdit-latest.js"></script>
+
+    <!-- закончили подключать файлы стилей -->
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Каталог товаров</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Главная</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Товары
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/products/addProduct.php">Добавить товар</a></li>
+                    <li><a href="/products/productList.php">Товары</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Накладные
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/products/addGroupProduct.php">Создать накладную</a></li>
+                    <li><a href="/products/consignmentList.php">Накладные</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Клиенты
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/clients/clientList.php">Клиенты</a></li>
+                    <li><a href="/clients/addClient.php">Создать клиента</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Касса
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/cashier/incomes.php">Приходы</a></li>
+                    <li><a href="/cashier/expenses.php">Расходы</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Настройки
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/setup/changeSetup.php">Изменить</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
