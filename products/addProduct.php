@@ -6,6 +6,16 @@ $link = include '../params/connectDB.php';
 // Создаем название страницы
 $title = 'Добавить товар';
 
+$querySetup = 'SELECT * FROM setup WHERE id = 1';
+
+$resultSetup = mysqli_query($link, $querySetup);
+
+$setup = array();
+while ($row = mysqli_fetch_assoc($resultSetup)) {
+    $setup = $row;
+    break;
+};
+
 // если форма добавления продукта была отправлена - вставляем продукт в базу.
 if(!empty($_POST) ){
 
@@ -15,11 +25,13 @@ if(!empty($_POST) ){
     $price = isset($_POST['price']) ? $_POST['price'] : null;
     $count = isset($_POST['count']) ? $_POST['count'] : null;
     $provider = isset($_POST['provider']) ? $_POST['provider'] : null;
+    $delivery = isset($_POST['delivery']) ? $_POST['delivery'] : null;
+    $priceSell = isset($_POST['price_sell']) ? $_POST['price_sell'] : null;
 
 
     //Проверяем чтобы все поля были заполнены, если что не заполнено
     // и сообщаем об этом..
-    if(!$artical || !$price || !$brand || !$count || !$provider){
+    if(!$artical || !$price || !$brand || !$count || !$provider || !$delivery || !$priceSell){
         $error =   '<h4 style="color: red; text-align: center">Не заполнены все поля</h4>';
     }
 
@@ -34,10 +46,12 @@ if(!empty($_POST) ){
         $values[] = "'$price'";
         $values[] = $count;
         $values[] = "'$provider'";
+        $values[] = "'$delivery'";
+        $values[] = $priceSell;
         $values = implode(', ', $values);
 
         // Пишем SQL запрос для вставки в базу данных продукта.
-        $query = "INSERT INTO product (artical, brand, price, count_product, provider) VALUES ($values)";
+        $query = "INSERT INTO product (artical, brand, price, count_product, provider, delivery_time, price_sell) VALUES ($values)";
 
         // Вставляем наш продукт в базу данных
         $result = mysqli_query($link, $query);

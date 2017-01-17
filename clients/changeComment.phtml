@@ -17,7 +17,7 @@
         <?php } ?>
 
         <!-- Если клиент указан правильно, создаем форму для добавления клиента -->
-        <?php if ( isset($comment)) { ?>
+        <?php if (isset($comment)) { ?>
 
             <form name="changeClientComment" method="POST">
 
@@ -27,7 +27,8 @@
                 <div class="form-group">
                     <label>Сумма:</label>
 
-                    <input class="form-control" type="text" name="amount" id="amount" value="<?php echo $comment['amount'] ?>">
+                    <input class="form-control" type="text" name="amount" id="amount"
+                           value="<?php echo $comment['amount'] ?>">
                 </div>
 
                 <div class="form-group">
@@ -36,8 +37,38 @@
                           placeholder="Комментарий"><?php echo $comment['comment'] ?></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-success">Изменить комментарий</button>
+                <button type="submit" id="save_comment" class="btn btn-success">Изменить комментарий</button>
             </form>
+
+
+            <script type="text/javascript">
+                <?php
+                $prepayment = $setup["prepayment"];
+                $totalSum = $comment["totalSum"];
+                echo "var prepayment = $prepayment \r\n;";
+                echo "var totalSum = $totalSum; \r\n"
+
+                ?>
+
+                $(document).ready(function () {
+                    $('#amount').on('change', function () {
+                        price = $('#amount').val();
+
+                        if (price < totalSum * prepayment) {
+                            $('#price_error').remove();
+                            $('#amount').closest('div').append(
+                                '<p id="price_error"  style="text-align: center; color: red;;">' +
+                                'Цена продажи не может быть минимальной цены</p>');
+
+                            $('#save_comment').attr('disabled', 'disabled');
+                        }else {
+                            $('#price_error').remove();
+                            $('#save_comment').attr('disabled', null);
+                        }
+                    })
+                })
+            </script>
+
         <?php } ?>
 
     </div>

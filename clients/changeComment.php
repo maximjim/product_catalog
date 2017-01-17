@@ -7,6 +7,16 @@ $link = include '../params/connectDB.php';
 $title = 'Изменить комментарий';
 
 
+$querySetup = 'SELECT * FROM setup WHERE id = 1';
+
+$resultSetup = mysqli_query($link, $querySetup);
+
+$setup = array();
+while ($row = mysqli_fetch_assoc($resultSetup)) {
+    $setup = $row;
+    break;
+};
+
 $comment = null;
 if(isset($_GET['comment'])){
     $commentId = $_GET['comment'];
@@ -19,6 +29,18 @@ if(isset($_GET['comment'])){
         $comment = $row;
         break;
     };
+
+    $queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
+                              WHERE p.id IN
+                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $commentId)) ";
+
+    $resultTotalSum = mysqli_query($link, $queryTotalSum);
+    if(!empty($comment)){
+        while ($row = mysqli_fetch_assoc($resultTotalSum)) {
+            $comment['totalSum'] = $row['totalSum'];
+            break;
+        };
+    }
 } else {
     $error = 'Комментарий не указан';
 }

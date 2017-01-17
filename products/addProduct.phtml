@@ -1,4 +1,3 @@
-
 <!-- Подключаем наш навбар -->
 <?php include "../header.phtml" ?>
 
@@ -9,46 +8,105 @@
 
         <!-- если возникла ошибка или вставка не удалась -->
 
-        <?php if(isset($error)) echo $error?>
-        <?php if(isset($success)) echo $success?>
+        <?php if (isset($error)) echo $error ?>
+        <?php if (isset($success)) echo $success ?>
 
         <!-- Создаем форму для добавления товаров -->
         <form name="addProduct" method="POST">
             <div class="form-group">
                 <label>Артикул:</label>
                 <input name="artical" type="text" class="form-control" id="artical"
-                       value="<?php if(isset($_POST['artical'])) echo $_POST['artical'] ?>" placeholder="Артикул">
+                       value="<?php if (isset($_POST['artical'])) echo $_POST['artical'] ?>" placeholder="Артикул">
             </div>
 
             <div class="form-group">
                 <label>Бренд:</label>
                 <input name="brand" type="text" class="form-control" id="brand"
-                       value="<?php if(isset($_POST['brand'])) echo $_POST['brand'] ?>" placeholder="Бренд">
+                       value="<?php if (isset($_POST['brand'])) echo $_POST['brand'] ?>" placeholder="Бренд">
             </div>
 
             <div class="form-group">
-                <label>Цена:</label>
+                <label>Цена закупки:</label>
                 <input name="price" type="text" class="form-control" id="price"
-                       value="<?php if(isset($_POST['price'])) echo $_POST['price'] ?>" placeholder="Цена">
+                       value="<?php if (isset($_POST['price'])) echo $_POST['price'] ?>" placeholder="Цена закупки">
+            </div>
+
+            <div class="form-group">
+                <label>Цена продажи:</label>
+                <input disabled="disabled" name="price_sell" type="text" class="form-control" id="price_sell"
+                       value="<?php if (isset($_POST['price_sell'])) echo $_POST['price_sell'] ?>"
+                       placeholder="Цена продажи">
+            </div>
+
+            <div class="form-group">
+                <label>Срок поставки:</label>
+                <input name="delivery" type="text" class="form-control" id="delivery"
+                       value="<?php if (isset($_POST['delivery'])) echo $_POST['delivery'] ?>" placeholder="2017-01-01">
             </div>
 
             <div class="form-group">
                 <label>Количество:</label>
                 <input name="count" type="text" class="form-control" id="count"
-                       value="<?php if(isset($_POST['count'])) echo $_POST['count'] ?>" placeholder="Количество">
+                       value="<?php if (isset($_POST['count'])) echo $_POST['count'] ?>" placeholder="Количество">
             </div>
 
             <div class="form-group">
                 <label>Поставщик:</label>
                 <input name="provider" type="text" class="form-control" id="provider"
-                       value="<?php if(isset($_POST['provider'])) echo $_POST['provider'] ?>" placeholder="Поставщик">
+                       value="<?php if (isset($_POST['provider'])) echo $_POST['provider'] ?>" placeholder="Поставщик">
             </div>
 
-            <button type="submit" class="btn btn-success">Добавить товар</button>
+            <button id="add_product" disabled="disabled" type="submit" class="btn btn-success">Добавить товар</button>
         </form>
     </div>
 
 </div>
+
+<script type="text/javascript">
+
+    <?php
+    $priceSell = $setup["price_sell"];
+    $minPrice = $setup["min_price"];
+    echo "var priceSell = $priceSell \r\n;";
+    echo "var minPrice = $minPrice";
+    ?>
+
+    $(document).ready(function () {
+
+
+        $('#price').on('change', function () {
+            var price_buy = parseInt($('#price').val());
+
+            if (price_buy > 0) {
+                $('#price_sell').val(price_buy * priceSell);
+                $('#price_sell').attr('disabled', null)
+                $('#add_product').attr('disabled', null)
+            } else {
+                $('#price_sell').val(0)
+                $('#add_product').attr('disabled', 'disabled')
+            }
+        });
+
+        $('#price_sell').on('change', function () {
+            var price_buy = parseInt($('#price').val());
+            var price_sell = parseInt($('#price_sell').val());
+
+            if (price_sell < price_buy * minPrice) {
+                $('#price_sell_error').remove();
+                $('#price_sell').closest('div').append(
+                    '<p id="price_sell_error"  style="text-align: center; color: red;;">' +
+                    'Цена продажи не может быть минимальной цены</p>');
+                $('#price_sell').val(0)
+                $('#add_product').attr('disabled', 'disabled');
+            } else {
+                $('#price_sell_error').remove();
+                $('#add_product').attr('disabled', null);
+
+            }
+        })
+    })
+
+</script>
 
 </body>
 </html>

@@ -37,6 +37,22 @@
                        value="<?php if(isset($setup['address'])) echo $setup['address'] ?>" placeholder="Адрес">
             </div>
 
+            <div class="form-group">
+                <label>Цена продажи(коф.):</label>
+                <input name="price_sell" type="text" class="form-control" id="price_sell"
+                       value="<?php if(isset($setup['price_sell'])) echo $setup['price_sell'] ?>" placeholder="Цена продажи">
+            </div>
+            <div class="form-group">
+                <label>Минимальная цена(коф.):</label>
+                <input name="min_price" type="text" class="form-control" id="min_price"
+                       value="<?php if(isset($setup['min_price'])) echo $setup['min_price'] ?>" placeholder="Минильная цена">
+            </div>
+
+            <div class="form-group">
+                <label>Процент предоплаты:</label>
+                <input name="prepayment" type="text" class="form-control" id="prepayment"
+                       value="<?php if(isset($setup['prepayment'])) echo $setup['prepayment'] ?>" placeholder="Процент предоплаты">
+            </div>
 
             <div class="form-group">
                 <label>Текст для печатной формы:</label>

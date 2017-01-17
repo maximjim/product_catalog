@@ -73,6 +73,19 @@ if (empty($clients)) {
                 if(!isset($clients[$key]['comments']['id'])){}
                 $currentComment = $clients[$key]['comments'][$keyComment]['id'];
 
+                $queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
+                              WHERE p.id IN
+                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $currentComment)) ";
+
+                $resultTotalSum = mysqli_query($link, $queryTotalSum);
+
+                while ($row = mysqli_fetch_assoc($resultTotalSum)) {
+
+                    $clients[$key]['comments'][$keyComment] = array_merge($clients[$key]['comments'][$keyComment], $row);
+
+                    break;
+                };
+
                 $queryProduct = "SELECT * FROM product WHERE id IN
             ((SELECT product FROM client_comment_join_product WHERE comment IN
             ((SELECT id FROM clients_comments WHERE client = $currentClient AND id = $currentComment)) ))";

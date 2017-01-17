@@ -12,7 +12,8 @@ $title = 'Изменение настроек';
 
 if(!empty($_POST)){
 
-    if(!$_POST['face'] || !$_POST['text'] || !$_POST['address']){
+    if(!$_POST['face'] || !$_POST['text'] || !$_POST['address']
+        || !$_POST['price_sell'] || !$_POST['min_price'] || !$_POST['prepayment']){
         $error = "Все поля обязательные и не могут быть пустыми";
     }
 
@@ -20,12 +21,22 @@ if(!empty($_POST)){
         $face = $_POST['face'];
         $text = $_POST['text'];
         $address = $_POST['address'];
+        $minPrice = $_POST['min_price'];
+        $priceSell = $_POST['price_sell'];
+        $prepayment = $_POST['prepayment'];
 
         $face = "'$face'";
         $address = "'$address'";
         $text = "'$text'";
 
-        $query = "UPDATE setup SET face = $face, text = $text, address = $address WHERE id = 1";
+        $query = "UPDATE setup SET
+          face = $face,
+          text = $text,
+          address = $address,
+          min_price = $minPrice,
+          price_sell = $priceSell,
+          prepayment = $prepayment
+          WHERE id = 1";
 
         $result = mysqli_query($link, $query);
 
