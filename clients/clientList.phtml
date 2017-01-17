@@ -22,7 +22,7 @@
                     <th>Имя</th>
                     <th>Фамилия</th>
                     <th>Телефон</th>
-                    <th>Комментарий</th>
+                    <th>Заявка</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,12 +41,12 @@
                     <?php if (!empty($comments)) { ?>
                         <td colspan="5">
                             <?php if (isset($comments) && !empty($comments)) { ?>
-                                <h4 style="text-align: center">Комментарии</h4>
+                                <h4 style="text-align: center">Заявки</h4>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Комментарий</th>
+                                        <th>Заявка</th>
                                         <th>Дата создания</th>
                                         <th>Сумма оплаты</th>
                                         <th>Сумма по заказу</th>
@@ -71,7 +71,7 @@
 
                                                 <a href="changeComment.php?comment=
                                                     <?php echo $comment['id'] ?>">
-                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить комментарий
+                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить заявку
                                                     </button>
                                                 </a>
 

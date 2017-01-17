@@ -4,16 +4,15 @@
 $link = include '../params/connectDB.php';
 
 // Создаем название страницы
-$title = 'Добавить комментарий';
+$title = 'Добавить заявку';
 
 // Если форма была отправлена начинаем обработку формы
 if(!empty($_POST)){
-    if(!isset($_POST['client']) || !isset($_POST['comment'])){
+    if(!isset($_POST['client']) || !isset($_POST['comment']) || !$_POST['comment'] ){
         $error = 'Все поля обязательные для заполнения';
     }
-
+    $client = $_POST['client'];
     if(!isset($error)){
-        $client = $_POST['client'];
 
         $querySearchClient = "SELECT * FROM clients WHERE id = $client";
 
@@ -50,7 +49,7 @@ if(!empty($_POST)){
         $result = mysqli_query($link, $query);
 
         if($result){
-            $success = 'Комментарий успешно добавлен';
+            $success = 'Заявка успешно добавлена';
 
             header("location: clientList.php?client=" . $client);
         } else {

@@ -16,8 +16,6 @@
             <h4 style="text-align: center; color: green"> <?php echo $success ?> </h4>
         <?php } ?>
 
-        <!-- Если клиент указан правильно, создаем форму для добавления клиента -->
-        <?php if (!isset($error)) { ?>
 
             <form name="addUserComment" method="POST">
 
@@ -25,15 +23,14 @@
                        value="<?php echo $client?>">
 
                 <div class="form-group">
-                    <label>Комментарий:</label>
+                    <label>Заявка:</label>
                 <textarea name="comment" type="text" class="form-control" id="comment"
 
-                          placeholder="Комментарий"><?php if (isset($_POST['comment'])) echo $_POST['comment'] ?></textarea>
+                          placeholder="Заявка"><?php if (isset($_POST['comment'])) echo $_POST['comment'] ?></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-success">Добавить комментарий</button>
+                <button type="submit" class="btn btn-success">Добавить заявку</button>
             </form>
-        <?php } ?>
 
         <?php if(isset($comments) && !empty($comments)){ ?>
             <h4 style="text-align: center">Комментарии</h4>
