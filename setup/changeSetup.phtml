@@ -55,6 +55,18 @@
             </div>
 
             <div class="form-group">
+                <label>Напоминание о заявке(минут):</label>
+                <input name="claim_time" type="text" class="form-control" id="claim_time"
+                       value="<?php if(isset($setup['claim_time'])) echo $setup['claim_time'] ?>" placeholder="Время напоминания о заявке">
+            </div>
+
+            <div class="form-group">
+                <label>Напоминание о заказе(дней):</label>
+                <input name="order_time" type="text" class="form-control" id="order_time"
+                       value="<?php if(isset($setup['order_time'])) echo $setup['order_time'] ?>" placeholder="Время напоминания о заказе">
+            </div>
+
+            <div class="form-group">
                 <label>Текст для печатной формы:</label>
 
                 <textarea name="text" id="NicEdit" cols="110" rows="20">

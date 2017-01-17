@@ -13,7 +13,8 @@ $title = 'Изменение настроек';
 if(!empty($_POST)){
 
     if(!$_POST['face'] || !$_POST['text'] || !$_POST['address']
-        || !$_POST['price_sell'] || !$_POST['min_price'] || !$_POST['prepayment']){
+        || !$_POST['price_sell'] || !$_POST['min_price'] || !$_POST['prepayment']
+            || !$_POST['claim_time'] || !$_POST['order_time']){
         $error = "Все поля обязательные и не могут быть пустыми";
     }
 
@@ -24,6 +25,8 @@ if(!empty($_POST)){
         $minPrice = $_POST['min_price'];
         $priceSell = $_POST['price_sell'];
         $prepayment = $_POST['prepayment'];
+        $claimTime = $_POST['claim_time'];
+        $orderTime = $_POST['order_time'];
 
         $face = "'$face'";
         $address = "'$address'";
@@ -35,7 +38,9 @@ if(!empty($_POST)){
           address = $address,
           min_price = $minPrice,
           price_sell = $priceSell,
-          prepayment = $prepayment
+          prepayment = $prepayment,
+          claim_time = $claimTime,
+          order_time = $orderTime
           WHERE id = 1";
 
         $result = mysqli_query($link, $query);

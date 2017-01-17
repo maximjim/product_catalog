@@ -70,3 +70,40 @@
         </ul>
     </div>
 </nav>
+
+<script type="text/javascript">
+    <?php if(isset($_GET['redirectConfirm'])){
+        echo 'var isRedirect = true';
+    }else{
+        echo 'var isRedirect = false';
+    } ?>
+
+
+
+    function printNumbersInterval() {
+        var timerId = setInterval(function() {
+
+            $.ajax({
+                url: '/clients/rememberComment.php',
+                success: function(data) {
+                    var response = JSON.parse(data);
+                    if(!isRedirect) {
+                        if (response.status == 'remember') {
+                            if (confirm("В заявку нужно добавить товары, перейти?") == true) {
+                                window.clearInterval(timerId);
+                                window.open("/clients/addProductToClient.php?redirectConfirm=1&client=" + response.data.client + "&comment=" + response.data.id)
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            });
+
+        }, 60000);
+    }
+
+    // вызов
+    printNumbersInterval();
+
+</script>
