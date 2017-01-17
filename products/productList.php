@@ -5,7 +5,9 @@ $title = 'Товары';
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
-$query = "SELECT * FROM product WHERE id NOT IN (
+$query = "SELECT p.*, s.name AS status_name FROM product AS p
+          LEFT JOIN product_status AS s ON p.status = s.id
+          WHERE p.id NOT IN (
           (SELECT product FROM consignments_join_product GROUP BY id))";
 
 $results = mysqli_query($link, $query);
