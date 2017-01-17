@@ -5,8 +5,7 @@ $title = 'Товары';
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
-$query = "SELECT p.*, s.name AS status_name FROM product AS p
-          LEFT JOIN product_status AS s ON p.status = s.id
+$query = "SELECT p.* FROM product AS p
           WHERE p.id NOT IN (
           (SELECT product FROM consignments_join_product GROUP BY id))";
 
@@ -18,11 +17,22 @@ while ($row = mysqli_fetch_assoc($results)) {
     $products[] = $row;
 };
 
-if(empty($products)){
+if (empty($products)) {
     $emptyResult = 'Товаров не найдено';
+} else {
+    mysqli_query($link, "SET NAMES 'utf8'");
+    mysqli_query($link, "SET CHARACTER SET utf8 ");
+    foreach ($products as $key => $product) {
+        $statusId = $product['status'];
+        $query = "SELECT name FROM product_status WHERE id = $statusId";
+
+        $results = mysqli_query($link, $query);
+
+        while ($row = mysqli_fetch_assoc($results)) {
+            $products[$key]['status_name'] = $row['name'];
+        };
+    }
 }
-
-
 
 
 // Подключаем наш интерфейс
