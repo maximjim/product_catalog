@@ -30,7 +30,7 @@ if(isset($_GET['comment'])){
         break;
     };
 
-    $queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
+    $queryTotalSum = "SELECT sum(price * count_product) as totalSum FROM product AS p
                               WHERE p.id IN
                               ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $commentId)) ";
 
