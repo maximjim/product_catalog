@@ -66,7 +66,7 @@ if(!empty($_POST)){
         $result = mysqli_query($link, $query);
 
         if($amount > 0){
-            $queryUpdateProduct = "UPDATE product SET status = (SELECT * FROM product_status AS p WHERE p.key = 'treated') WHERE id IN
+            $queryUpdateProduct = "UPDATE product SET status = (SELECT id FROM product_status AS p WHERE p.key = 'treated') WHERE id IN
               ((SELECT product FROM client_comment_join_product WHERE comment = $commentId))";
 
             mysqli_query($link, $queryUpdateProduct);

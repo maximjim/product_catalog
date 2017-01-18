@@ -2,7 +2,7 @@
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
-$query = "SELECT * FROM product_status";
+$query = "SELECT id AS value, name AS text FROM product_status";
 
 $results = mysqli_query($link, $query);
 
@@ -11,4 +11,4 @@ while($row = mysqli_fetch_assoc($results)){
     $statuses[] = $row;
 }
 
-echo json_encode($statuses);
+print json_encode($statuses);
