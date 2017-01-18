@@ -60,6 +60,7 @@
                                             <td style="width: 10%"><?php echo $comment['id'] ?></td>
                                             <td style="width: 80%"><?php echo $comment['comment'] ?></td>
                                             <td>
+                                                <?php if($comment['status_key'] != 'issued'){ ?>
                                                 <a href="#"
                                                    data-name="claim_status"
                                                    data-type="select" data-pk="<?php echo $comment['id'] ?>"
@@ -67,23 +68,26 @@
                                                    data-url="/clients/changeClaimStatus.php"
                                                    data-title="Сменить статус" class="product_status editable editable-click" data-original-title=""
                                                    title=""><?php echo $comment['status_name'] ?></a>
+                                    <?php } else { echo $comment['status_name']; }?>
                                             </td>
                                             <td style="width: 80%"><?php echo $comment['createdAt'] ?></td>
                                             <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['amount']) ?></td>
                                             <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['totalSum']) ?></td>
                                             <td>
-
-                                                <a  href="addProductToClient.php?client=
+                                                <?php if($comment['status_key'] != 'issued'){ ?>
+                                                    <a  href="addProductToClient.php?client=
                                                     <?php echo $client['id'] . '&comment=' . $comment['id'] ?>">
-                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Добавить товар
-                                                    </button>
-                                                </a>
+                                                        <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Добавить товар
+                                                        </button>
+                                                    </a>
 
-                                                <a href="changeComment.php?comment=
+                                                    <a href="changeComment.php?comment=
                                                     <?php echo $comment['id'] ?>">
-                                                    <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить заявку
-                                                    </button>
-                                                </a>
+                                                        <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить заявку
+                                                        </button>
+                                                    </a>
+                                                <?php }?>
+
 
                                                 <a target="_blank" href="printComment.php?comment=
                                                     <?php echo $comment['id'] ?>">

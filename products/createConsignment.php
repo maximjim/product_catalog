@@ -81,6 +81,55 @@ if (!empty($_POST)) {
                         $success = 'Накладная успешно создана.';
                     }
 
+                    $queryComment = "SELECT c.*, s.key AS status_key FROM clients_comments AS c
+            LEFT JOIN claim_status AS s ON c.status = s.id
+            WHERE s.key NOT IN ('issued', 'came')";
+
+                    $results = mysqli_query($link, $queryComment);
+
+                    $comments = array();
+                    while( $row = mysqli_fetch_assoc($results)){
+                        $comments[] = $row;
+                    }
+
+                    foreach ($comments as $comment) {
+                        $commentId = $comment['id'];
+
+                        $query = "SELECT p.*, s.key AS status_key FROM product AS p
+                           LEFT JOIN product_status AS s ON p.status = s.id
+                           LEFT JOIN client_comment_join_product AS cp ON p.id = cp.product
+                           WHERE cp.comment = $commentId";
+
+                        $products = array();
+
+                        $resultsProducts = mysqli_query($link, $query);
+
+                        while($row = mysqli_fetch_assoc($resultsProducts)){
+                            $products[] = $row;
+                        }
+                        $isCame = false;
+                        if(!empty($products)){
+                            foreach ($products as $product) {
+                                var_dump($product['status_key']);
+                                if($product['status_key'] == 'came'){
+                                    $isCame = true;
+                                } else{
+                                    $isCame = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if($isCame){
+                            $queryUpdateComment = "UPDATE clients_comments SET status = (SELECT id FROM claim_status AS s WHERE
+                                          s.key = 'came') WHERE id = $commentId";
+                            $resultUpdate = mysqli_query($link, $queryUpdateComment);
+                            var_dump($resultUpdate);die;
+                        }
+
+                    }die;
+
+
                 } else {
                     mysqli_rollback($link);
                     $error = 'При вставке произошла ошибка. Попробуйте еще раз';

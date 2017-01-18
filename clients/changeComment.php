@@ -61,6 +61,22 @@ if(!empty($_POST)){
         $amount = intval($_POST['amount']);
         $id = $_POST['id'];
 
+        $queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
+                              WHERE p.id IN
+                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $commentId)) ";
+
+        $resultTotalSum = mysqli_query($link, $queryTotalSum);
+        $totalSum = mysqli_fetch_assoc($resultTotalSum);
+        $totalSum = intval($totalSum['totalSum']);
+
+        $querySearchComment = "SELECT c.*, cs.key AS status_key FROM clients_comments AS c
+                        LEFT JOIN claim_status AS cs ON c.status = cs.id
+                        WHERE c.id = $commentId";
+
+        $resultComment = mysqli_query($link, $querySearchComment);
+
+        $searchComment = mysqli_fetch_assoc($resultComment);
+
         $query = "UPDATE clients_comments SET comment = $comment, amount = $amount WHERE id = $id";
 
         $result = mysqli_query($link, $query);
@@ -70,6 +86,14 @@ if(!empty($_POST)){
               ((SELECT product FROM client_comment_join_product WHERE comment = $commentId))";
 
             mysqli_query($link, $queryUpdateProduct);
+        }
+
+        if(intval($totalSum) == intval($amount) && $searchComment['status_key'] == 'came'){
+            $queryUpdateComment =
+                "UPDATE clients_comments SET status =
+                    (SELECT id FROM claim_status AS s WHERE s.key = 'issued') WHERE id = $commentId";
+
+            mysqli_query($link, $queryUpdateComment);
         }
 
         if($result){

@@ -50,7 +50,7 @@ if (empty($clients)) {
     $emptyResult = 'Клиентов не найдено';
 } else {
 
-    $query = 'SELECT s.*, cs.name AS status_name FROM clients_comments AS s
+    $query = 'SELECT s.*, cs.name AS status_name, cs.key AS status_key FROM clients_comments AS s
         LEFT JOIN claim_status AS cs ON s.status = cs.id
         WHERE s.client = ';
     foreach ($clients as $key => $client) {
