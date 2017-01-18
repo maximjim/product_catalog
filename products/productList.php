@@ -20,8 +20,6 @@ while ($row = mysqli_fetch_assoc($results)) {
 if (empty($products)) {
     $emptyResult = 'Товаров не найдено';
 } else {
-    mysqli_query($link, "SET NAMES 'utf8'");
-    mysqli_query($link, "SET CHARACTER SET utf8 ");
     foreach ($products as $key => $product) {
         $statusId = $product['status'];
         $query = "SELECT name FROM product_status WHERE id = $statusId";

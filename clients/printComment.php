@@ -46,13 +46,7 @@ if (isset($commentId)) {
 
 
 // Получаем настройки
-// Устанавливаем кодировку русских символов для этой таблицы настроек
-// Все нужные запросы в дополнение системы делать выше!
-        mysqli_query($link, "SET NAMES 'utf8'");
-        mysqli_query($link, "SET CHARACTER SET utf8 ");
-
         $querySetup = "SELECT * FROM setup WHERE id = 1";
-
 
         $resultSetup = mysqli_query($link, $querySetup);
         $setup = array();

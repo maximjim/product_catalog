@@ -5,6 +5,8 @@ $DBparams = include "config.php";
 // Подключаемся к базе данных
 $link = mysqli_connect($DBparams['host'], $DBparams['user'], $DBparams['password'], $DBparams['name']);
 
+mysqli_set_charset($link, 'utf8' );
+
 // Если по какой то причине не удалось подключиться показываем это
 if (!$link) {
     echo "Ошибка: Невозможно установить соединение с MySQL." . PHP_EOL;

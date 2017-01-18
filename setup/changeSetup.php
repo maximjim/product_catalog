@@ -3,10 +3,6 @@
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
-// Устанавливаем кодировку русских символов для этой страницы
-mysqli_query($link, "SET NAMES 'utf8'");
-mysqli_query($link, "SET CHARACTER SET utf8 ");
-
 // Создаем название страницы
 $title = 'Изменение настроек';
 
