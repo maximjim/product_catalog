@@ -22,6 +22,7 @@
                     <th>Артикул</th>
                     <th>Бренд</th>
                     <th>Статус</th>
+                    <th>Дата прихода</th>
                     <th>Цена закупки</th>
                     <th>Цена продажи</th>
                     <th>Количество</th>
@@ -43,6 +44,7 @@
                                data-title="Сменить статус" class="product_status editable editable-click" data-original-title=""
                                title=""><?php echo $product['status_name'] ?></a>
                         </td>
+                        <td><?php echo $product['delivery_time'] ?></td>
                         <td><?php echo $product['price'] ?></td>
                         <td><?php echo $product['price_sell'] ?></td>
                         <td><?php echo $product['count_product'] ?></td>
