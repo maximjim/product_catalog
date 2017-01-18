@@ -26,7 +26,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     // Пеереводим ID товаров из массива в строку
     $currentProductsId = implode(', ', $currentProductsId);
 
-    $query = "SELECT p.* FROM product AS p
+    $query = "SELECT p.*, s.name AS status_name FROM product AS p
             LEFT JOIN product_status AS s ON p.status = s.id
             WHERE p.artical = '" . $search . "'
             AND p.id NOT IN ((SELECT product FROM consignments_join_product GROUP BY id))
@@ -75,7 +75,10 @@ if(isset($_POST['action']) && isset($_POST['productId'])){
         if(!$productInArray){
             //ищем товар в базе, если находим добавляем его в сессию, если не находим ничего не делаем.
 
-            $query = "SELECT * FROM product where id = $productId";
+            $query = "SELECT p.*, s.name AS status_name FROM product AS p
+            LEFT JOIN product_status AS s ON p.status = s.id
+            WHERE p.id = $productId";
+
             $results = mysqli_query($link, $query);
             while ($row = mysqli_fetch_assoc($results)) {
                 $product = $row;

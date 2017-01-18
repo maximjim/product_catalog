@@ -2,7 +2,7 @@
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
-$query = "SELECT id AS value, name AS text FROM product_status AS s WHERE s.key NOT IN ('treated', 'came')";
+$query = "SELECT id AS value, name AS text FROM claim_status AS s WHERE s.key NOT IN ('came','issued')";
 
 $results = mysqli_query($link, $query);
 

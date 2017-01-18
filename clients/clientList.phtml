@@ -47,6 +47,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Заявка</th>
+                                        <th>Статус</th>
                                         <th>Дата создания</th>
                                         <th>Сумма оплаты</th>
                                         <th>Сумма по заказу</th>
@@ -58,6 +59,15 @@
                                         <tr class="success">
                                             <td style="width: 10%"><?php echo $comment['id'] ?></td>
                                             <td style="width: 80%"><?php echo $comment['comment'] ?></td>
+                                            <td>
+                                                <a href="#"
+                                                   data-name="claim_status"
+                                                   data-type="select" data-pk="<?php echo $comment['id'] ?>"
+                                                   data-value="" data-source="/clients/getClaimStatus.php"
+                                                   data-url="/clients/changeClaimStatus.php"
+                                                   data-title="Сменить статус" class="product_status editable editable-click" data-original-title=""
+                                                   title=""><?php echo $comment['status_name'] ?></a>
+                                            </td>
                                             <td style="width: 80%"><?php echo $comment['createdAt'] ?></td>
                                             <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['amount']) ?></td>
                                             <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['totalSum']) ?></td>
