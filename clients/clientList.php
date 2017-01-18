@@ -86,7 +86,10 @@ if (empty($clients)) {
                     break;
                 };
 
-                $queryProduct = "SELECT * FROM product WHERE id IN
+                $queryProduct = "SELECT p.*, s.name AS status_name
+            FROM product as p
+            LEFT JOIN product_status AS s ON p.status = s.id
+            WHERE p.id IN
             ((SELECT product FROM client_comment_join_product WHERE comment IN
             ((SELECT id FROM clients_comments WHERE client = $currentClient AND id = $currentComment)) ))";
 

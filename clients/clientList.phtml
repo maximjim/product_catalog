@@ -95,6 +95,7 @@
                                                             <th>ID</th>
                                                             <th>Артикул</th>
                                                             <th>Бренд</th>
+                                                            <th>Статус</th>
                                                             <th>Цена закупки</th>
                                                             <th>Цена продажи</th>
                                                             <th>Количество</th>
@@ -108,6 +109,15 @@
                                                                 <td><?php echo $product['id'] ?></td>
                                                                 <td><?php echo $product['artical'] ?></td>
                                                                 <td><?php echo $product['brand'] ?></td>
+                                                                <td>
+                                                                    <a href="#"
+                                                                       data-name="product_status"
+                                                                       data-type="select" data-pk="<?php echo $product['id'] ?>"
+                                                                       data-value="" data-source="/products/getProductStatus.php"
+                                                                       data-url="/products/changeProductStatus.php"
+                                                                       data-title="Сменить статус" class="product_status editable editable-click" data-original-title=""
+                                                                       title=""><?php echo $product['status_name'] ?></a>
+                                                                </td>
                                                                 <td><?php echo $product['price'] ?></td>
                                                                 <td><?php echo $product['price_sell'] ?></td>
                                                                 <td><?php echo $product['count_product'] ?></td>
@@ -141,6 +151,11 @@
 
 </div>
 
+<script>
+    $('.product_status').editable({
+        showbuttons: false
+    });
+</script>
 
 </body>
 </html>
