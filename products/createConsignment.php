@@ -50,6 +50,7 @@ if (!empty($_POST)) {
                     $productsId = array();
                     foreach ($products as $product) {
                         $productId = $product['id'];
+                        $productsId = $product['id'];
 
                         // Соединяем нашу накладную с товарами.
                         $query = "INSERT INTO consignments_join_product (product, consignment) VALUES ($productId, $consignmentId)";
@@ -60,6 +61,10 @@ if (!empty($_POST)) {
                             $error = 'При вставке товаров произошла ошибка. Попробуйте еще раз';
                         }
                     }
+
+                    $queryUpdateProduct = "UPDATE product SET status =
+                        (SELECT id FROM product_status AS p WHERE p.key = 'came') WHERE id IN ($productsId)";
+                    mysqli_query($link, $queryUpdateProduct);
 
                     //если все прошло без ошибок сохраняемся
 

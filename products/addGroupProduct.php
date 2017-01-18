@@ -26,7 +26,13 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     // Пеереводим ID товаров из массива в строку
     $currentProductsId = implode(', ', $currentProductsId);
 
-    $query = "SELECT * FROM product WHERE artical = '" . $search . "' AND id NOT IN ((SELECT product FROM consignments_join_product GROUP BY id))";
+    $query = "SELECT p.* FROM product AS p
+            LEFT JOIN product_status AS s ON p.status = s.id
+            WHERE p.artical = '" . $search . "'
+            AND p.id NOT IN ((SELECT product FROM consignments_join_product GROUP BY id))
+            AND s.key = 'ordered'";
+
+
     // Если уже у нас есть товары в сессии для создания накладной то исключаем их из будущего поиска
     if ($currentProductsId) {
         $query .= ' AND id NOT IN (' . $currentProductsId . ')';

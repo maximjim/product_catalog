@@ -34,7 +34,7 @@
                         <td><?php echo $product['id'] ?></td>
                         <td><?php echo $product['artical'] ?></td>
                         <td><?php echo $product['brand'] ?></td>
-                        <td><?php echo $product['status_name'] ?></td>
+                        <td><a href="#" class="product_status"><?php echo $product['status_name'] ?></a></td>
                         <td><?php echo $product['price'] ?></td>
                         <td><?php echo $product['price_sell'] ?></td>
                         <td><?php echo $product['count_product'] ?></td>
@@ -50,6 +50,32 @@
 
 </div>
 
+
+<link rel="stylesheet" href="/resource/select2.min.css">
+<script type="text/javascript" src="/resource/select2.min.js"></script>
+<script type="text/javascript">
+    $(".product_status").on('click', function(){
+        $(".product_status").select2({
+            minimumInputLength: 0,
+            ajax: {
+                url: "getProductStatus.php",
+                dataType: 'json',
+                type: "GET",
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                slug: item.key,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+    })
+</script>
 
 </body>
 </html>
