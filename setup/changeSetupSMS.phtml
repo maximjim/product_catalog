@@ -1,0 +1,53 @@
+
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- если возникла ошибка или вставка не удалась -->
+
+        <?php if (isset($error)) { ?>
+            <h3 style="text-align: center; color: red"><?php echo $error ?></h3>
+        <?php } ?>
+        <?php if (isset($success)) { ?>
+            <h3 style="text-align: center; color: green"><?php echo $success ?></h3>
+        <?php } ?>
+
+        <!-- Создаем форму для добавления товаров -->
+        <form name="changeSetup" method="POST">
+            <div class="form-group">
+                <label>Хост:</label>
+                <input name="host" type="text" class="form-control" id="host"
+                       value="<?php if(isset($setup['host'])) echo $setup['host'] ?>" placeholder="Хост">
+            </div>
+
+            <div class="form-group">
+                <label>Порт:</label>
+                <input name="port" type="text" class="form-control" id="port"
+                       value="<?php if(isset($setup['port'])) echo $setup['port'] ?>" placeholder="Порт">
+            </div>
+
+            <div class="form-group">
+                <label>Логин:</label>
+                <input name="login" type="text" class="form-control" id="login"
+                       value="<?php if(isset($setup['login'])) echo $setup['login'] ?>" placeholder="Логин">
+            </div>
+
+            <div class="form-group">
+                <label>Пароль:</label>
+                <input name="password" type="text" class="form-control" id="password"
+                       value="<?php if(isset($setup['password'])) echo $setup['password'] ?>" placeholder="Пароль">
+            </div>
+
+
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
