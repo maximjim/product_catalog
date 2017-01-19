@@ -125,7 +125,7 @@ if (!empty($_POST)) {
                             $resultUpdate = mysqli_query($link, $queryUpdateComment);
                         }
 
-                    }die;
+                    }
 
 
                 } else {

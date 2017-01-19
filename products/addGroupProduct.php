@@ -35,8 +35,9 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 
     // Если уже у нас есть товары в сессии для создания накладной то исключаем их из будущего поиска
     if ($currentProductsId) {
-        $query .= ' AND id NOT IN (' . $currentProductsId . ')';
+        $query .= ' AND p.id NOT IN (' . $currentProductsId . ')';
     }
+
     $results = mysqli_query($link, $query);
     /* Выборка результатов запроса */
     while ($row = mysqli_fetch_assoc($results)) {
