@@ -18,7 +18,9 @@ if (empty($consignments)) {
     $emptyResult = 'Накладных не найдено';
 } else {
 
-    $queryProduct = "SELECT * FROM product as p LEFT JOIN consignments_join_product AS c ON c.product = p.id WHERE c.consignment = ";
+    $queryProduct = "SELECT p.*, s.name AS status_name FROM product as p
+        LEFT JOIN product_status AS s ON p.status = s.id
+        LEFT JOIN consignments_join_product AS c ON c.product = p.id WHERE c.consignment = ";
     foreach ($consignments as $key => $consignment) {
         $consignments[$key]['products'] = array();
         $queryProductToResult = $queryProduct . $consignment['id'];

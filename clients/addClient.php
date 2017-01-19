@@ -7,15 +7,30 @@ $link = include '../params/connectDB.php';
 $title = 'Добавить пользователя';
 
 // если форма добавления продукта была отправлена - вставляем продукт в базу.
-if(!empty($_POST)){
-    if(!$_POST['name'] || !$_POST['phone']){
+if (!empty($_POST)) {
+    if (!$_POST['name'] || !$_POST['phone']) {
         $error = 'Все поля обязательны для заполнения';
     }
+    if (!preg_match('/^[0-9]{11}$/', $_POST['phone'])) {
+        $error = 'Номер телефона указан неверно, формат только цифры, 11 цифр.';
+    }
 
-    if(!isset($error)){
+    if (!isset($error)) {
         $name = $_POST['name'];
         $family = $_POST['family'];
         $phone = $_POST['phone'];
+
+        $querySearchClient = "SELECT * FROM clients WHERE phone = $phone";
+
+        $clientResult = mysqli_query($link, $querySearchClient);
+        $client = mysqli_fetch_assoc($clientResult);
+
+        if ($client) {
+            $client = $client['id'];
+            header("location: clientList.php?client=$client");
+            die;
+        }
+
 
         // Создаем массив значений для вставки в базу данных и превращаем его в строку, оборачивая переменные в кавычки
         $values[] = "'$name'";
@@ -27,12 +42,12 @@ if(!empty($_POST)){
 
         $result = mysqli_query($link, $query);
 
-        if($result){
+        if ($result) {
             $success = 'Клиент успешно создан';
             unset($_POST);
 
             header('location: clientList.php');
-        }else {
+        } else {
             $error = 'Вставка не удалась';
         }
 

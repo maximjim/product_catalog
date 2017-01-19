@@ -28,7 +28,7 @@ if(!empty($_POST) ){
     $delivery = isset($_POST['delivery']) ? $_POST['delivery'] : null;
     $priceSell = isset($_POST['price_sell']) ? $_POST['price_sell'] : null;
 
-    if(!preg_match('/[0-9]{4}-[0-1][0-9]-[0-3][0-9]$/', $_POST['delivery'])){
+    if(!preg_match('/^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$/', $_POST['delivery'])){
         $error = 'формат даты указан не верно.';
     }
 
