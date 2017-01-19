@@ -56,10 +56,5 @@ if (isset($commentId)) {
     }
 }
 
-
-//echo '<pre>';
-//var_dump($products);die;
-
-
 // Подключаем наш интерфейс
 include "printComment.phtml";

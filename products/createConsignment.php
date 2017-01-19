@@ -110,7 +110,6 @@ if (!empty($_POST)) {
                         $isCame = false;
                         if(!empty($products)){
                             foreach ($products as $product) {
-                                var_dump($product['status_key']);
                                 if($product['status_key'] == 'came'){
                                     $isCame = true;
                                 } else{
@@ -124,7 +123,6 @@ if (!empty($_POST)) {
                             $queryUpdateComment = "UPDATE clients_comments SET status = (SELECT id FROM claim_status AS s WHERE
                                           s.key = 'came') WHERE id = $commentId";
                             $resultUpdate = mysqli_query($link, $queryUpdateComment);
-                            var_dump($resultUpdate);die;
                         }
 
                     }die;
