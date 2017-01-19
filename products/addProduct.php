@@ -22,6 +22,7 @@ if(!empty($_POST) ){
     // Берем данные из переданной нам формы.
     $artical = isset($_POST['artical']) ? $_POST['artical'] : null;
     $brand = isset($_POST['brand']) ? $_POST['brand'] : null;
+    $name = isset($_POST['name']) ? $_POST['name'] : null;
     $price = isset($_POST['price']) ? $_POST['price'] : null;
     $count = isset($_POST['count']) ? $_POST['count'] : null;
     $provider = isset($_POST['provider']) ? $_POST['provider'] : null;
@@ -34,7 +35,7 @@ if(!empty($_POST) ){
 
     //Проверяем чтобы все поля были заполнены, если что не заполнено
     // и сообщаем об этом..
-    if(!$artical || !$price || !$brand || !$count || !$provider || !$delivery || !$priceSell){
+    if(!$artical || !$price || !$brand || !$count || !$provider || !$delivery || !$priceSell || !$name){
         $error =   '<h4 style="color: red; text-align: center">Не заполнены все поля</h4>';
     }
 
@@ -47,6 +48,7 @@ if(!empty($_POST) ){
         $values[] = "'$artical'";
         $values[] = "'$brand'";
         $values[] = "'$price'";
+        $values[] = "'$name'";
         $values[] = $count;
         $values[] = "'$provider'";
         $values[] = "'$delivery'";
@@ -54,7 +56,7 @@ if(!empty($_POST) ){
         $values = implode(', ', $values);
 
         // Пишем SQL запрос для вставки в базу данных продукта.
-        $query = "INSERT INTO product (artical, brand, price, count_product, provider, delivery_time, price_sell) VALUES ($values)";
+        $query = "INSERT INTO product (artical, brand, price, name, count_product, provider, delivery_time, price_sell) VALUES ($values)";
 
         // Вставляем наш продукт в базу данных
         $result = mysqli_query($link, $query);
