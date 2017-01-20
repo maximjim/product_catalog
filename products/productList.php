@@ -1,4 +1,6 @@
 <?php
+include "../security/checkLogin.php";
+
 // Создаем название страницы
 $title = 'Товары';
 

@@ -74,6 +74,10 @@
             </li>
 
         </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/security/logout.php">Выход</a></li>
+        </ul>
     </div>
 </nav>
 
@@ -85,31 +89,31 @@
         echo 'var isRedirect = false';
     } ?>
 
-//    function printNumbersInterval() {
-//        var timerId = setInterval(function() {
-//
-//            $.ajax({
-//                url: '/clients/rememberCommentProduct.php',
-//                success: function(data) {
-//                    var response = JSON.parse(data);
-//                    if(!isRedirect) {
-//                        if (response.status == 'remember') {
-//                            if (confirm("В заявку #" + response.data.id + " нужно добавить товары, перейти?") == true) {
-//                                window.clearInterval(timerId);
-//                                window.open("/clients/addProductToClient.php?redirectConfirm=1&client=" + response.data.client + "&comment=" + response.data.id)
-//                            } else {
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//
-//        }, 60000);
-//    }
-//
-//    // вызов
-//    printNumbersInterval();
+    function printNumbersInterval() {
+        var timerId = setInterval(function() {
+
+            $.ajax({
+                url: '/clients/rememberCommentProduct.php',
+                success: function(data) {
+                    var response = JSON.parse(data);
+                    if(!isRedirect) {
+                        if (response.status == 'remember') {
+                            if (confirm("В заявку #" + response.data.id + " нужно добавить товары, перейти?") == true) {
+                                window.clearInterval(timerId);
+                                window.open("/clients/addProductToClient.php?redirectConfirm=1&client=" + response.data.client + "&comment=" + response.data.id)
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            });
+
+        }, 60000);
+    }
+
+    // вызов
+    printNumbersInterval();
 
 </script>
 
@@ -122,30 +126,30 @@
         echo 'var isRedirect = false';
     } ?>
 
-//    function printNumbersInterval() {
-//        var timerId = setInterval(function() {
-//
-//            $.ajax({
-//                url: '/clients/rememberCommentComeTime.php',
-//                success: function(data) {
-//                    var response = JSON.parse(data);
-//                    if(!isRedirect) {
-//                        if (response.status == 'remember') {
-//                            if (confirm("Нужно проверить заказ #" + response.data.id + ", перейти?") == true) {
-//                                window.clearInterval(timerId);
-//                                window.open("/clients/clientList.php?redirectConfirm=1&client=" + response.data.client)
-//                            } else {
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//
-//        }, 60000);
-//    }
-//
-//    // вызов
-//    printNumbersInterval();
+    function printNumbersInterval() {
+        var timerId = setInterval(function() {
+
+            $.ajax({
+                url: '/clients/rememberCommentComeTime.php',
+                success: function(data) {
+                    var response = JSON.parse(data);
+                    if(!isRedirect) {
+                        if (response.status == 'remember') {
+                            if (confirm("Нужно проверить заказ #" + response.data.id + ", перейти?") == true) {
+                                window.clearInterval(timerId);
+                                window.open("/clients/clientList.php?redirectConfirm=1&client=" + response.data.client)
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            });
+
+        }, 60000);
+    }
+
+    // вызов
+    printNumbersInterval();
 
 </script>

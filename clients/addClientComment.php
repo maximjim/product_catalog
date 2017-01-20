@@ -1,4 +1,5 @@
 <?php
+include "../security/checkLogin.php";
 
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';

@@ -1,4 +1,5 @@
 <?php
+include "../security/checkLogin.php";
 
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
@@ -30,7 +31,10 @@ if(!empty($_POST) ){
     $priceSell = isset($_POST['price_sell']) ? $_POST['price_sell'] : null;
 
     if(!preg_match('/^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$/', $_POST['delivery'])){
-        $error = 'формат даты указан не верно.';
+        $error = '<h4 style="color: red; text-align: center">Формат даты указан не верно.</h4>';
+    }
+    if(!preg_match("/^(\\w||\\d)+$/", $artical )){
+        $error = '<h4 style="color: red; text-align: center">Артикул не должен содержать символов кроме букв и цифр.</h4>';
     }
 
     //Проверяем чтобы все поля были заполнены, если что не заполнено

@@ -2,6 +2,8 @@
 /*
 * функция передачи сообщения
 */
+include "../security/checkLogin.php";
+
 function send($host, $port, $login, $password, $phone, $text, $sender = false, $wapurl = false )
 {
     $fp = fsockopen($host, $port, $errno, $errstr);

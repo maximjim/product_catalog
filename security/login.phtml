@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/resource/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form style="margin-top: 35%" name="login" method="POST">
+            <div class="form-group">
+                <label>Логин:</label>
+                <input name="login" type="text" class="form-control" id="login"
+                       value="<?php if (isset($_POST['login'])) echo $_POST['login'] ?>" placeholder="Логин">
+            </div>
+
+            <div class="form-group">
+                <label>Пароль:</label>
+                <input name="password" type="password" class="form-control" id="password"
+                       value="" placeholder="Пароль">
+            </div>
+            <button id="login_form" type="submit" class="btn btn-success">Авторизация</button>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+</body>
+</html>

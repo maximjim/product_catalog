@@ -1,53 +1,12 @@
 <?php
 // Запускаем сессию
-session_start();
+include "../security/checkLogin.php";
 
 // Получаем подключение к БД из файла подключение
 $link = include '../params/connectDB.php';
 
 // Создаем название страницы
 $title = 'Добавить товар клиенту';
-
-
-// если форма поиска товара была отправлена и она не пуста ищем товар по артикулу
-if (isset($_POST['search']) && !empty($_POST['search'])) {
-
-    // пишем запрос для подключения поиска товара по артикулу
-    $search = $_POST['search'];
-
-    // Берем список текущих товары из сессии и получаем список ИД
-    $currentProducts = isset($_SESSION['clientProducts']) ? $_SESSION['clientProducts'] : array();
-    $currentProductsId = array();
-
-    foreach ($currentProducts as $key => $currentProduct) {
-        $currentProductsId[] = $currentProduct['id'];
-
-    }
-
-    // Пеереводим ID товаров из массива в строку
-    $currentProductsId = implode(', ', $currentProductsId);
-
-    $query = "SELECT p.*, s.name AS status_name FROM product AS p
-    LEFT JOIN product_status AS s ON p.status = s.id
-    WHERE p.artical = '" . $search . "' AND p.id NOT IN ((SELECT product FROM client_comment_join_product GROUP BY id))";
-    // Если уже у нас есть товары в сессии для создания накладной то исключаем их из будущего поиска
-    if ($currentProductsId) {
-        $query .= ' AND p.id NOT IN (' . $currentProductsId . ')';
-    }
-    $results = mysqli_query($link, $query);
-    /* Выборка результатов запроса */
-    while ($row = mysqli_fetch_assoc($results)) {
-        $product = $row;
-        break;
-    };
-
-    if (!isset($product)) {
-        // если товаров не было найдено создаем сообщение об этом
-        $emptyResult = 'Товар не найден';
-    }
-
-
-}
 
 
 // Добавляем или удаляем товар из сессии
@@ -103,6 +62,67 @@ if (isset($_POST['action']) && isset($_POST['productId'])) {
     unset($product);
 
 }
+
+// Берем список текущих товары из сессии и получаем список ИД
+$currentProducts = isset($_SESSION['clientProducts']) ? $_SESSION['clientProducts'] : array();
+$currentProductsId = array();
+
+foreach ($currentProducts as $key => $currentProduct) {
+    $currentProductsId[] = $currentProduct['id'];
+
+}
+
+// Пеереводим ID товаров из массива в строку
+$currentProductsId = implode(', ', $currentProductsId);
+
+$queryOtherProducts = "SELECT p.*, s.name AS status_name FROM product AS p
+    LEFT JOIN product_status AS s ON p.status = s.id
+    WHERE p.id NOT IN ((SELECT product FROM client_comment_join_product GROUP BY id))";
+
+if ($currentProductsId) {
+    $queryOtherProducts .= ' AND p.id NOT IN (' . $currentProductsId . ')';
+}
+
+$resultOtherProducts = mysqli_query($link, $queryOtherProducts);
+
+$otherProducts = array();
+
+while ($row = mysqli_fetch_assoc($resultOtherProducts)) {
+    $otherProducts[] = $row;
+}
+
+
+// если форма поиска товара была отправлена и она не пуста ищем товар по артикулу
+if (isset($_POST['search']) && !empty($_POST['search'])) {
+
+    // пишем запрос для подключения поиска товара по артикулу
+    $search = $_POST['search'];
+
+    $query = "SELECT p.*, s.name AS status_name FROM product AS p
+    LEFT JOIN product_status AS s ON p.status = s.id
+    WHERE lower(p.artical) LIKE '%" . $search . "%' AND p.id NOT IN ((SELECT product FROM client_comment_join_product GROUP BY id))";
+    // Если уже у нас есть товары в сессии для создания накладной то исключаем их из будущего поиска
+    if ($currentProductsId) {
+        $query .= ' AND p.id NOT IN (' . $currentProductsId . ')';
+    }
+    $results = mysqli_query($link, $query);
+
+    /* Выборка результатов запроса */
+    $products = array();
+    while ($row = mysqli_fetch_assoc($results)) {
+        $products[] = $row;
+    };
+
+    if (empty($products)) {
+        // если товаров не было найдено создаем сообщение об этом
+        $emptyResult = 'Товар не найден';
+    }
+
+
+}
+
+
+
 
 $client = isset($_GET['client']) ? $_GET['client'] : null;
 $comment = isset($_GET['comment']) ? $_GET['comment'] : null;

@@ -15,7 +15,7 @@
         <form name="addProduct" method="POST">
             <div class="form-group">
                 <label>Артикул:</label>
-                <input name="artical" type="text" class="form-control" id="artical"
+                <input name="artical" type="text" class="form-control" id="artical" onchange="validateArtical(this.value)"
                        value="<?php if (isset($_POST['artical'])) echo $_POST['artical'] ?>" placeholder="Артикул">
             </div>
 
@@ -62,13 +62,17 @@
                        value="<?php if (isset($_POST['provider'])) echo $_POST['provider'] ?>" placeholder="Поставщик">
             </div>
 
-            <button id="add_product" disabled="disabled" type="submit" class="btn btn-success">Добавить товар</button>
+            <button id="add_product" type="submit" class="btn btn-success">Добавить товар</button>
         </form>
     </div>
 
 </div>
 
 <script type="text/javascript">
+
+    function validateArtical(value){
+        console.log(value);
+    }
 
     <?php
     $priceSell = $setup["price_sell"];
