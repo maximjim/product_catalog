@@ -31,9 +31,9 @@ function send($host, $port, $login, $password, $phone, $text, $sender = false, $
 /*
 * использование функции передачи сообщения
 */
-echo send("gate.prostor-sms.ru", 80, "api_login", "api_password",
-    "71234567890", "text here", "prostor-sms",
-    "wap.yousite.ru");
+//echo send("gate.prostor-sms.ru", 80, "api_login", "api_password",
+//    "71234567890", "text here", "prostor-sms",
+//    "wap.yousite.ru");
 /*
 * функция проверки состояния отправленного сообщения
 */
@@ -63,5 +63,5 @@ function status($host, $port, $login, $password, $sms_id)
 /*
 * использование функции проверки состояния отправленного сообщения
 */
-echo status("gate.prostor-sms.ru", 80, "api_login", "api_password", "12345");
+//echo status("gate.prostor-sms.ru", 80, "api_login", "api_password", "12345");
 ?>

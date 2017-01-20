@@ -32,7 +32,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
     WHERE p.artical = '" . $search . "' AND p.id NOT IN ((SELECT product FROM client_comment_join_product GROUP BY id))";
     // Если уже у нас есть товары в сессии для создания накладной то исключаем их из будущего поиска
     if ($currentProductsId) {
-        $query .= ' AND id NOT IN (' . $currentProductsId . ')';
+        $query .= ' AND p.id NOT IN (' . $currentProductsId . ')';
     }
     $results = mysqli_query($link, $query);
     /* Выборка результатов запроса */
