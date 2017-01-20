@@ -32,8 +32,8 @@
 
             <div class="form-group">
                 <label>Телефон:</label>
-                <input name="phone" type="number" class="form-control" id="phone"
-                       value="<?php if (isset($_POST['phone'])) echo $_POST['phone'] ?>" placeholder="Телефон">
+                <input name="phone" type="text" class="form-control" id="phone" onkeypress="validatePhone(this.value)"
+                      onchange="validatePhone(this.value)" value="<?php if (isset($_POST['phone'])) echo $_POST['phone'] ?>" placeholder="Телефон">
             </div>
 
             <button type="submit" class="btn btn-success">Добавить клиента</button>
@@ -41,6 +41,23 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+
+    function validatePhone(value){
+        if(value.length > 0 && value.length < 11){
+                var re = /^\d+$/gi;
+                var newstr = value.replace(re, 'notvalue');
+                if(newstr !== 'notvalue'){
+                    var str1 = value.substring(0, value.length - 1);
+                    $('#phone').val(str1);
+                }
+        }else {
+            var str2 = value.substring(0, value.length - 1);
+            $('#phone').val(str2);
+        }
+    }
+</script>
 
 </body>
 </html>
