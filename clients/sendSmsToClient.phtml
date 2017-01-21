@@ -1,0 +1,45 @@
+<!-- Подключаем наш навбар -->
+<?php include "../header.phtml" ?>
+
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+
+        <!-- Если были заполнены не все поля говорим об этом -->
+        <?php if (isset($error)) { ?>
+            <h4 style="text-align: center; color: red"> <?php echo $error ?> </h4>
+        <?php } ?>
+
+        <?php if (isset($emptyClient)) { ?>
+            <h4 style="text-align: center; color: red"> <?php echo $emptyClient ?> </h4>
+        <?php } ?>
+
+        <!-- Если операция была успешной сообщаем -->
+        <?php if (isset($success)) { ?>
+            <h4 style="text-align: center; color: green"> <?php echo $success ?> </h4>
+        <?php } ?>
+
+        <?php if (!isset($emptyClient)) { ?>
+            <form name="sendClientSms" method="POST">
+
+                <input name="client" style="display: none" type="text" class="form-control" id="client"
+                       value="<?php echo $client ?>">
+
+                <div class="form-group">
+                    <label>Текст:</label>
+                <textarea name="text" class="form-control" id="text"
+
+                          placeholder="Текст"><?php if (isset($_POST['text'])) echo $_POST['text'] ?></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Отправить</button>
+            </form>
+        <?php } ?>
+    </div>
+
+</div>
+
+
+</body>
+</html>
