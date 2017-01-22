@@ -49,5 +49,19 @@ if($statusValue['key'] == 'reject'){
 $query = "UPDATE product SET status = $status WHERE id = $product";
 mysqli_query($link, $query);
 
+$commentQuery = "SELECT comment FROM client_comment_join_product WHERE product = $product";
 
-echo json_encode(true);
+$commentResult = mysqli_query($link, $commentQuery);
+$comment = mysqli_fetch_assoc($commentResult);
+$comment = $comment['comment'];
+
+$queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
+                              WHERE p.id IN
+                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $comment))
+                               AND p.id IN ((SELECT id FROM product WHERE status != (SELECT id FROM product_status AS s WHERE s.key = 'return')))";
+
+$totalSumResult = mysqli_query($link, $queryTotalSum);
+$totalSum = mysqli_fetch_assoc($totalSumResult);
+$totalSum = $totalSum['totalSum'];
+$totalSum = number_format($totalSum, 2);
+echo json_encode(['comment' => $comment, 'totalSum' => $totalSum]);

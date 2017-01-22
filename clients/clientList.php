@@ -78,7 +78,8 @@ if (empty($clients)) {
 
                 $queryTotalSum = "SELECT sum(price_sell * count_product) as totalSum FROM product AS p
                               WHERE p.id IN
-                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $currentComment)) ";
+                              ((SELECT product FROM client_comment_join_product AS cmp WHERE cmp.comment = $currentComment))
+                               AND p.id IN ((SELECT id FROM product WHERE status != (SELECT id FROM product_status AS s WHERE s.key = 'return')))";
 
                 $resultTotalSum = mysqli_query($link, $queryTotalSum);
 

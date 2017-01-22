@@ -72,7 +72,7 @@
                                             </td>
                                             <td style="width: 80%"><?php echo $comment['createdAt'] ?></td>
                                             <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['amount']) ?></td>
-                                            <td style="width: 10%;text-align: center; vertical-align: middle"><?php echo intval($comment['totalSum']) ?></td>
+                                            <td style="width: 10%;text-align: center; vertical-align: middle"><span id="totalSum_<?php echo $comment['id'] ?>"><?php echo number_format($comment['totalSum'], 2) ?></span></td>
                                             <td>
                                                 <?php if($comment['status_key'] != 'issued'){ ?>
                                                     <a  href="addProductToClient.php?client=
@@ -176,7 +176,13 @@
 
 <script>
     $('.product_status').editable({
-        showbuttons: false
+        success: function(data) {
+            data = JSON.parse(data);
+            var comment = data.comment;
+            var totalSum = data.totalSum;
+
+            $('#totalSum_' + comment).text(totalSum)
+        }
     });
 </script>
 
