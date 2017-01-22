@@ -9,6 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="http://js.nicedit.com/nicEdit-latest.js"></script>
+    <link rel="stylesheet" href="/resource/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/resource/select2.min.css">
     <script type="text/javascript" src="/resource/select2.min.js"></script>
@@ -83,73 +84,71 @@
 
 <!-- Напоминание о заявке внести товары -->
 <script type="text/javascript">
-<?php if(isset($_GET['redirectConfirm'])){
+    <?php if (isset($_GET['redirectConfirm'])) {
         echo 'var isRedirect = true';
-    }else{
+    } else {
         echo 'var isRedirect = false';
     } ?>
 
-//    function printNumbersInterval() {
-//        var timerId = setInterval(function() {
-//
-//            $.ajax({
-//                url: '/clients/rememberCommentProduct.php',
-//                success: function(data) {
-//                    var response = JSON.parse(data);
-//                    if(!isRedirect) {
-//                        if (response.status == 'remember') {
-//                            if (confirm("В заявку #" + response.data.id + " нужно добавить товары, перейти?") == true) {
-//                                window.clearInterval(timerId);
-//                                window.open("/clients/addProductToClient.php?redirectConfirm=1&client=" + response.data.client + "&comment=" + response.data.id)
-//                            } else {
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//
-//        }, 60000);
-//    }
+    function printNumbersInterval() {
+        var timerId = setInterval(function () {
 
-    // вызов
-//    printNumbersInterval();
+            $.ajax({
+                url: '/clients/rememberCommentProduct.php',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    if (!isRedirect) {
+                        if (response.status == 'remember') {
+                            if (confirm("В заявку #" + response.data.id + " нужно добавить товары, перейти?") == true) {
+                                window.clearInterval(timerId);
+                                window.open("/clients/addProductToClient.php?redirectConfirm=1&client=" + response.data.client + "&comment=" + response.data.id)
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            });
+
+        }, 60000);
+    }
+
+    printNumbersInterval();
 
 </script>
 
 <!-- Напоминание о заказе за Х дней до прихода-->
 
 <script type="text/javascript">
-<?php if(isset($_GET['redirectConfirm'])){
+    <?php if (isset($_GET['redirectConfirm'])) {
         echo 'var isRedirect = true';
-    }else{
+    } else {
         echo 'var isRedirect = false';
     } ?>
 
-//    function printNumbersInterval() {
-//        var timerId = setInterval(function() {
-//
-//            $.ajax({
-//                url: '/clients/rememberCommentComeTime.php',
-//                success: function(data) {
-//                    var response = JSON.parse(data);
-//                    if(!isRedirect) {
-//                        if (response.status == 'remember') {
-//                            if (confirm("Нужно проверить заказ #" + response.data.id + ", перейти?") == true) {
-//                                window.clearInterval(timerId);
-//                                window.open("/clients/clientList.php?redirectConfirm=1&client=" + response.data.client)
-//                            } else {
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//
-//        }, 60000);
-//    }
+    function printNumbersInterval() {
+        var timerId = setInterval(function () {
 
-    // вызов
-    //printNumbersInterval();
+            $.ajax({
+                url: '/clients/rememberCommentComeTime.php',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    if (!isRedirect) {
+                        if (response.status == 'remember') {
+                            if (confirm("Нужно проверить заказ #" + response.data.id + ", перейти?") == true) {
+                                window.clearInterval(timerId);
+                                window.open("/clients/clientList.php?redirectConfirm=1&client=" + response.data.client)
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            });
+
+        }, 60000);
+    }
+
+    printNumbersInterval();
 
 </script>

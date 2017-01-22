@@ -42,7 +42,6 @@ if($statusValue['key'] == 'reject'){
     $resSms =  send("gate.prostor-sms.ru", 80, $login, $password,
         $phoneSent, $text);
 
-    file_put_contents('sms.txt', $resSms);
 }
 
 

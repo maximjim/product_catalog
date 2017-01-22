@@ -77,28 +77,20 @@
                                                 <?php if($comment['status_key'] != 'issued'){ ?>
                                                     <a  href="addProductToClient.php?client=
                                                     <?php echo $client['id'] . '&comment=' . $comment['id'] ?>">
-                                                        <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Добавить товар
-                                                        </button>
-                                                    </a>
+                                                        <i class="fa fa-plus-square fa-2x"></i></a>
 
                                                     <a href="changeComment.php?comment=
                                                     <?php echo $comment['id'] ?>">
-                                                        <button style="width: 100%; margin-bottom: 5%" type="button" class="btn btn-success">Изменить заявку
-                                                        </button>
-                                                    </a>
+                                                        <i class="fa fa-edit fa-2x"></i></a>
                                                 <?php }?>
 
 
                                                 <a target="_blank" href="printComment.php?comment=
                                                     <?php echo $comment['id'] ?>">
-                                                    <button style="width: 100%" type="button" class="btn btn-success">Печать
-                                                    </button>
-                                                </a>
+                                                    <i class="fa fa-print fa-2x"></i></a>
                                                 <a target="_blank" href="sendSmsToClient.php?client=
                                                     <?php echo $client['id'] ?>">
-                                                    <button style="width: 100%; margin-top: 5%" type="button" class="btn btn-success">Отправить смс
-                                                    </button>
-                                                </a>
+                                                    <i class="fa fa-mobile fa-2x"></i></a>
                                             </td>
                                         </tr>
                                         <?php $products = $comment['products'] ?>
