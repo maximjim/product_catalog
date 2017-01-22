@@ -8,7 +8,7 @@ $link = include '../params/connectDB.php';
 // Создаем название страницы
 $title = 'Накладные';
 
-$queryConsignments = 'SELECT * FROM consignments';
+$queryConsignments = 'SELECT * FROM consignments WHERE inCashier= 0';
 
 $resultsConsignments = mysqli_query($link, $queryConsignments);
 /* Выборка результатов запроса */

@@ -37,7 +37,7 @@ if(!empty($_POST)){
         $comment = $_POST['comment'];
 
         $date = new \DateTime();
-        $date = $date->format('Y-m-d h:i:s');
+        $date = $date->format('Y-m-d H:i:s');
 
         // Создаем массив значений для вставки в базу данных и превращаем его в строку, оборачивая переменные в кавычки
         $values[] = "'$client'";
